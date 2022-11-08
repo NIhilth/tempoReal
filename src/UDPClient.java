@@ -28,18 +28,18 @@ class UDPClientThread extends Thread{
                 String sentence = inFromUser.readLine();
                 sendData = sentence.getBytes();
 
-                //cria o pacote UDP a ser enviado
+
                 DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, porta);
 
                 System.out.println("Enviando pacote UDP para " + servidor + ":" + porta);
 
-                //envia o pacote UDP
+
                 clientSocket.send(sendPacket);
 
-                //cria um datagrama para guardar a resposta
+
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);;
 
-                //aguarda o recebimento da resposta
+
                 clientSocket.receive(receivePacket);
                 System.out.println("Pacote UDP recebido...");
                 String modifiedSentence = new String(receivePacket.getData());
