@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -32,8 +33,7 @@ public class Controlador extends JFrame implements Runnable {
             labelValor.setText(new String(receivePacket.getData()));
 
             Long horarioMudanca = new Date().getTime();
-
-            System.out.println(horarioMudanca - horarioAtual);
+            gravarArquivo(horarioMudanca, horarioMudanca - horarioAtual );
 
         } catch (Exception e) {
             System.out.println(e);
@@ -67,6 +67,26 @@ public class Controlador extends JFrame implements Runnable {
             }
         } else {
             JOptionPane.showMessageDialog(null, "A janela já está aberta");
+        }
+    }
+
+    public void gravarArquivo(Long horaAtual, Long tempoDeResposta){
+        File arquivo = new File("C:\\Users\\joao_hm_silva\\Documents\\Arquivo\\gravacao.txt");
+        try {
+            if (!arquivo.exists()) {
+                arquivo.createNewFile();
+            }
+            FileWriter fw = new FileWriter(arquivo, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            Date dataAtual = new Date(horaAtual);
+
+            bw.write("Tempo de resposta as "+ dataAtual +" :"+tempoDeResposta);
+            bw.newLine();
+
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 

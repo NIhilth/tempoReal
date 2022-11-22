@@ -1,3 +1,5 @@
+package examples;
+
 import java.net.*;
 import java.io.*;
 import java.util.Scanner;
